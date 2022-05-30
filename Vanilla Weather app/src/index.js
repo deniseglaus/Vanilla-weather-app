@@ -41,7 +41,18 @@ function displayTemperature(response) {
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
-let apiKey = "f927e95d004267b11a157aabf2e3acc3";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=46.204391&lon=6.143158&appid=${apiKey}&units=metric`;
-console.log(apiUrl);
-axios.get(apiUrl).then(displayTemperature);
+
+function search(city) {
+  let apiKey = "f927e95d004267b11a157aabf2e3acc3";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+
+function submitCity(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#city-input");
+  search(cityInputElement.value);
+}
+search("Milan");
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", submitCity);
